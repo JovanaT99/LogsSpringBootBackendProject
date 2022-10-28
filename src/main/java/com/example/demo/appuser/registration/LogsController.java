@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.BadAttributeValueExpException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
@@ -34,9 +36,10 @@ public class LogsController {
             return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(e.getMessage());
         }
     }
+
     @GetMapping("/search")
-    public ResponseEntity<?> getLogs(){
-         return ResponseEntity.ok().body(logService.getLogs());
+    public ResponseEntity<?> getLogs() {
+        return ResponseEntity.ok().body(logService.getLogs());
     }
 
     @GetMapping("/search/message")
@@ -53,7 +56,24 @@ public class LogsController {
 
     }
 
+    @GetMapping("/search/createdAt")
+    public ResponseEntity<?> dateFrom(@RequestParam String createdAt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime localDate = LocalDateTime.parse(createdAt + " 00:00", formatter);
 
+        return new ResponseEntity<>(logRepo.findByDate(localDate), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/search/dataTo")
+    public ResponseEntity<?> dateTo(@RequestParam String dataTo) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime localDate = LocalDateTime.parse(dataTo + " 00:00", formatter);
+            return new ResponseEntity<>(logRepo.findByDateTo(localDate), HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid date");
+        }
+    }
 
 }

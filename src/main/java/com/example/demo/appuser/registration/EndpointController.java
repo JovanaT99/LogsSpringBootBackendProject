@@ -73,7 +73,7 @@ public class EndpointController {
             );
 
             confTokenService.saveConfToken(confToken);
-            System.out.println("Bla bla" + appUser.getEmail());
+            //System.out.println("Bla bla" + appUser.getEmail());
             Map<String, String> map = new HashMap<>();
             map.put("token", token);
             return ResponseEntity.ok(map);

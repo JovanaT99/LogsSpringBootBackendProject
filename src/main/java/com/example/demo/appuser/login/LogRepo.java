@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,6 +19,17 @@ interface LogRepo extends JpaRepository<Logs, Long> {
     @Query
             ("SELECT s FROM Logs s WHERE s.logType=?1")
     List<Logs>findByLogType(int logType);
+
+
+    @Query
+            ("SELECT d FROM Logs d WHERE d.createdAt>=?1")
+    List<Logs>findByDate(LocalDateTime createdAt);
+
+    @Query
+            ("SELECT d FROM Logs d WHERE d.createdAt<=?1")
+    List<Logs>findByDateTo(LocalDateTime createdAt);
+
+
 
 }
 
