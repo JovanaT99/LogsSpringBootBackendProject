@@ -1,9 +1,10 @@
-package com.example.demo.appuser.registration;
+package com.example.demo.services;
 
-import com.example.demo.appuser.AppUser;
-import com.example.demo.appuser.UserService;
-import com.example.demo.appuser.registration.token.ConfToken;
-import com.example.demo.appuser.registration.token.ConfTokenService;
+import com.example.demo.validators.EmailValidator;
+import com.example.demo.validators.PasswordValidator;
+import com.example.demo.models.RegistrationRequest;
+import com.example.demo.models.AppUser;
+import com.example.demo.models.ConfToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,8 @@
-package com.example.demo.appuser.registration;
+package com.example.demo.controllers;
 
-import com.example.demo.appuser.login.LogRepo;
-import com.example.demo.appuser.login.LogServic;
-import com.example.demo.appuser.models.Logs;
+import com.example.demo.repositories.LogRepository;
+import com.example.demo.services.LogService;
+import com.example.demo.models.Logs;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 public class LogsController {
 
-    private LogServic logService;
+    private LogService logService;
     @Autowired
-    LogRepo logRepo;
+    LogRepository logRepository;
 
 
     @PostMapping(path = "/create")
@@ -37,14 +37,14 @@ public class LogsController {
         }
     }
 
-    @GetMapping("/search")
+   /* @GetMapping()
     public ResponseEntity<?> getLogs() {
         return ResponseEntity.ok().body(logService.getLogs());
     }
-
+*/
     @GetMapping("/search/message")
     public ResponseEntity<List<Logs>> getLogsByMessage(@RequestParam String message) {
-        return new ResponseEntity<>(logRepo.findByMessage(message), HttpStatus.OK);
+        return new ResponseEntity<>(logRepository.findByMessage(message), HttpStatus.OK);
     }
 
     @GetMapping("/search/logType")
@@ -52,7 +52,7 @@ public class LogsController {
         if (logType > 2 || logType < 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid LogType");
         }
-        return new ResponseEntity<>(logRepo.findByLogType(logType), HttpStatus.OK);
+        return new ResponseEntity<>(logRepository.findByLogType(logType), HttpStatus.OK);
 
     }
 
@@ -61,7 +61,7 @@ public class LogsController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime localDate = LocalDateTime.parse(createdAt + " 00:00", formatter);
 
-        return new ResponseEntity<>(logRepo.findByDate(localDate), HttpStatus.OK);
+        return new ResponseEntity<>(logRepository.findByDate(localDate), HttpStatus.OK);
 
     }
 
@@ -70,7 +70,7 @@ public class LogsController {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime localDate = LocalDateTime.parse(dataTo + " 00:00", formatter);
-            return new ResponseEntity<>(logRepo.findByDateTo(localDate), HttpStatus.OK);
+            return new ResponseEntity<>(logRepository.findByDateTo(localDate), HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid date");
         }

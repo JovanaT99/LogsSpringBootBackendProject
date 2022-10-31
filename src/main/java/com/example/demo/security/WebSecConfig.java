@@ -1,9 +1,8 @@
-package com.example.demo.security.config;
+package com.example.demo.security;
 
 
-import com.example.demo.appuser.UserService;
-import com.example.demo.appuser.registration.token.ConfTokenService;
-import com.example.demo.appuser.registration.token.TokenFilter;
+import com.example.demo.services.ConfTokenService;
+import com.example.demo.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +38,7 @@ public class WebSecConfig {
                 .antMatchers("/api/clients/register").permitAll()
                 .antMatchers("/api/clients/login").permitAll()
                 .antMatchers("/api/clients/**/reset-password").hasAuthority("ADMIN")
+                .antMatchers("/api/clients/all").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated().and()
                 .addFilter(new TokenFilter(authenticationManager, confTokenService))

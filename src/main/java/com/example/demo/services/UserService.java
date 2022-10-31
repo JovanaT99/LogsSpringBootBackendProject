@@ -1,6 +1,7 @@
-package com.example.demo.appuser;
+package com.example.demo.services;
 
-import com.example.demo.appuser.registration.token.ConfTokenService;
+import com.example.demo.repositories.UserRepository;
+import com.example.demo.models.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -56,6 +57,7 @@ public class UserService implements UserDetailsService {
     public int enableAppUser(String email) {
         return userRepository.enableAppUser(email);
     }
+
 
 
 }

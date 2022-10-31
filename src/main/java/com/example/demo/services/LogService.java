@@ -1,7 +1,11 @@
-package com.example.demo.appuser.login;
+package com.example.demo.services;
 
 
-import com.example.demo.appuser.models.Logs;
+import com.example.demo.repositories.UserRepository;
+import com.example.demo.repositories.LogRepository;
+import com.example.demo.models.Logs;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import javax.management.BadAttributeValueExpException;
@@ -10,17 +14,18 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 @Service
-public class LogServic {
+@AllArgsConstructor
+@Getter
+public class LogService {
 
-    private final LogRepo logRepo;
+    private final LogRepository logRepository;
+    private final UserRepository userRepository;
 
-    public LogServic(LogRepo logRepo) {
-        this.logRepo = logRepo;
+
+    public List<Logs> getClients() {
+        return logRepository.findAll();
     }
 
-    public List<Logs>getLogs() {
-        return logRepo.findAll();
-    }
 
 
     public void createLog(Logs logs)
@@ -32,7 +37,7 @@ public class LogServic {
             throw new InvalidPropertiesFormatException("Message should be less than 1024");
         }
         logs.setCreatedAt(LocalDateTime.now());
-        logRepo.save(logs);
+        logRepository.save(logs);
 
     }
 

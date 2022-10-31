@@ -1,5 +1,6 @@
-package com.example.demo.appuser;
+package com.example.demo.repositories;
 
+import com.example.demo.models.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,8 @@ public interface UserRepository extends JpaRepository<AppUser,Long> {
 
    Optional<AppUser>findByEmail(String email);
     Optional<AppUser>findByUsername(String username);
+
+
 
     @Transactional
     @Modifying

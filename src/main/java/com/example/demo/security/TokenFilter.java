@@ -1,5 +1,7 @@
-package com.example.demo.appuser.registration.token;
+package com.example.demo.security;
 
+import com.example.demo.models.ConfToken;
+import com.example.demo.services.ConfTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

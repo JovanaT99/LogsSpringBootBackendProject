@@ -1,10 +1,14 @@
-package com.example.demo.appuser.registration;
+package com.example.demo.controllers;
 
-import com.example.demo.appuser.AppUser;
-import com.example.demo.appuser.login.LogServic;
-import com.example.demo.appuser.login.LoginRequest;
-import com.example.demo.appuser.registration.token.ConfToken;
-import com.example.demo.appuser.registration.token.ConfTokenService;
+import com.example.demo.models.AppUser;
+import com.example.demo.services.UserService;
+import com.example.demo.services.LogService;
+import com.example.demo.models.LogsRequest;
+import com.example.demo.models.Logs;
+import com.example.demo.models.RegistrationRequest;
+import com.example.demo.services.RegistrationService;
+import com.example.demo.models.ConfToken;
+import com.example.demo.services.ConfTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,15 +19,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,8 +44,16 @@ public class EndpointController {
     ConfTokenService confTokenService;
 
     private RegistrationService registrationService;
+    @Autowired
+    private LogService logServic;
+    @Autowired
+    private UserService userService;
 
-    private LogServic logServic;
+
+    @GetMapping("/all")
+    public List<Logs> getClients() {
+        return logServic.getClients();
+    }
 
     @PostMapping(path = "/register")
     public ResponseEntity<String> register(@RequestBody RegistrationRequest registrationRequest) {
@@ -58,10 +68,10 @@ public class EndpointController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<Object> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Object> login(@RequestBody LogsRequest logsRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getAccount(), loginRequest.getPassword()));
+                    new UsernamePasswordAuthenticationToken(logsRequest.getAccount(), logsRequest.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             AppUser appUser = (AppUser) authentication.getPrincipal();
             String token = UUID.randomUUID().toString();

@@ -1,6 +1,5 @@
-package com.example.demo.appuser.models;
+package com.example.demo.models;
 
-import com.example.demo.appuser.login.LogType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

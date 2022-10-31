@@ -1,5 +1,7 @@
-package com.example.demo.appuser;
+package com.example.demo.models;
 
+import com.example.demo.enums.AppUserRole;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +19,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonInclude
 public class AppUser implements UserDetails {
     @SequenceGenerator(
             name = "app_sequence",
@@ -34,9 +37,10 @@ public class AppUser implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
-    private Boolean locked = false;
-    private Boolean enabled = false;
 
+    private Boolean locked = false;
+
+    private Boolean enabled = false;
 
     public AppUser(String username, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
         this.username = username;

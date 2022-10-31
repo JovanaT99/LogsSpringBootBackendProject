@@ -1,4 +1,4 @@
-package com.example.demo.appuser.registration;
+package com.example.demo.validators;
 
 import org.springframework.stereotype.Service;
 

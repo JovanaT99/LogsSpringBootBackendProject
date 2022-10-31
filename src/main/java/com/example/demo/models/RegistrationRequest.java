@@ -1,7 +1,7 @@
-package com.example.demo.appuser.registration;
+package com.example.demo.models;
 
 
-import com.example.demo.appuser.AppUserRole;
+import com.example.demo.enums.AppUserRole;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
