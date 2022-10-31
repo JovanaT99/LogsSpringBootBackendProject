@@ -2,7 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.validators.EmailValidator;
 import com.example.demo.validators.PasswordValidator;
-import com.example.demo.models.RegistrationRequest;
+import com.example.demo.request.RegistrationRequest;
 import com.example.demo.models.AppUser;
 import com.example.demo.models.ConfToken;
 import lombok.AllArgsConstructor;

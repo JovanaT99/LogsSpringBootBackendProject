@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.request;
 
 
 import com.example.demo.enums.AppUserRole;
