@@ -32,7 +32,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "api/clients")
 @AllArgsConstructor
-public class EndpointController {
+public class ClientsController {
 
     @Autowired
     AuthenticationManager authenticationManager;
