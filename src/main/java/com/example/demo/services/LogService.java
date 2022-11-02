@@ -26,14 +26,12 @@ public class LogService {
         return logRepository.findAll();
     }
 
-
-
     public void createLog(Logs logs)
             throws BadAttributeValueExpException, InvalidPropertiesFormatException {
         if (logs.getLogType() > 2 || logs.getLogType() < 0) {
             throw new BadAttributeValueExpException("Incorrect logType");
         }
-        if(logs.getMessage().length()>1024) {
+        if (logs.getMessage().length() > 1024) {
             throw new InvalidPropertiesFormatException("Message should be less than 1024");
         }
         logs.setCreatedAt(LocalDateTime.now());
